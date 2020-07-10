@@ -120,6 +120,16 @@ class SkLearnTrainer(BaseTrainer):
         self.model.learning_rate_init = learning_rate
         (X_train, y_train), (X_test, y_test) = self.data
 
+        if hasattr(self.model, 'epochs'):
+            self.model.epochs = epochs
+        elif hasattr(self.model, 'max_depth'):
+            self.model.max_depth = epochs
+
+        if hasattr(self.model, 'learning_rate'):
+            self.model.learning_rate = learning_rate
+        elif hasattr(self.model, 'lr'):
+            self.model.lr = learning_rate
+
         # this example won't converge because of CI's time constraints, so we catch the
         # warning and are ignore it here
         with warnings.catch_warnings():
